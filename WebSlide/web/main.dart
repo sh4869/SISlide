@@ -68,7 +68,7 @@ void main() {
   }
 
   presentation.start();
-  /*ws = new WebSocket("");
+  ws = new WebSocket("ws://localhost:9500");
 
   ws.onMessage.listen((MessageEvent e) {
     if (e.data == "right") {
@@ -79,7 +79,7 @@ void main() {
       updatePageCount(false);
     }
   });
-  */
+
   // Handle key events.
   document.onKeyDown.listen((KeyboardEvent event) {
     switch (event.keyCode) {
