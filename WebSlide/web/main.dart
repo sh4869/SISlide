@@ -54,6 +54,7 @@ String markdownSource = """
 ## 詳しいことは
 
 新歓とか休憩の時に聞いてくださいヽ(^_^)ノ
+ソース : https://github.com/sh4869/SISlide
 @@@
 ## 2.自己紹介
 @@@
