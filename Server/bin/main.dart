@@ -26,12 +26,14 @@ void handleWebSocket(WebSocket socket) {
 }
 
 void handleRightRequest(HttpRequest request) {
+  print("Right Request");
   ws?.add("right");
   request.response.reasonPhrase = "Connect Right";
   request.response.close();
 }
 
 void handleLeftRequest(HttpRequest request) {
+  print("Left Request");
   ws?.add("left");
   request.response.reasonPhrase = "Connect Left";
   request.response.close();
