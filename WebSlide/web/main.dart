@@ -5,20 +5,7 @@ import 'dart:html';
 import 'package:presentation/presentation.dart';
 import 'package:WebSlide/md2slide.dart';
 
-void main() {
-  List<List<num>> spi = [
-    [1500, 0, 0, 0, 0, 0],
-    [3000, 0, 0, 0, 0, 0],
-    [4500, 0, 0, 0, 0, 0],
-    [6000, 0, 0, 0, 0, 0],
-    [7000, 0, 1000, 90, 0, 0],
-    [6000, 0, 2000, 180, 0, 0],
-    [6000, -300, 1800, 0, -90, 90],
-    [6000, 0, 1200, 0, 0, 90],
-    [7000,500,0,30,90,90],
-    [7000,500,500,-30,180,-90]
-  ];
-  String markdownSource = """
+String markdownSource = """
 # プレプロ発表
 
 ### 情報工学科 AL16030 笠井信宏
@@ -51,8 +38,27 @@ void main() {
 
 新歓とか休憩の時に聞いてくださいヽ(^_^)ノ
 """;
+
+WebSocket ws;
+
+int count = 1;
+int maxCount;
+
+void main() {
+  List<List<num>> spi = [
+    [1500, 0, 0, 0, 0, 0],
+    [3000, 0, 0, 0, 0, 0],
+    [4500, 0, 0, 0, 0, 0],
+    [6000, 0, 0, 0, 0, 0],
+    [7000, 0, 1000, 90, 0, 0],
+    [6000, 0, 2000, 180, 0, 0],
+    [6000, -300, 1800, 0, -90, 90],
+    [6000, 0, 1200, 0, 0, 90],
+    [7000, 500, 0, 30, 90, 90],
+    [7000, 500, 500, -30, 180, -90]
+  ];
   List<HtmlElement> elements = MDConverter.convertMarkdown(markdownSource);
-  int maxCount = elements.length;
+  maxCount = elements.length;
   var presentation = new BasicSlideShow(querySelector("#render"));
   int x = 0;
   for (Element ele in elements) {
@@ -60,37 +66,49 @@ void main() {
         spi[x][3], spi[x][4], spi[x][5]);
     x += 1;
   }
-  /*
-  presentation.addHtmlSlide("面白い", 1.0, 0.0, 0.0,0.0, 0.0, 0.0, 0.0);
-  presentation.addHtmlSlide("良い", 1.0, 0.0, 0.0, -3000.0, 0.0, 0.0, 0.0);
-  presentation.addHtmlSlide("最高", 1.0, 0, 0.0, 0.0, 0.0, 90.0, 0.0);
-  presentation.addHtmlSlide("優勝", 1.0, 1500.0, 0.0, 0.0, 90.0, 0.0, 0.0);
-  presentation.addHtmlSlide("尊い…", 1.0, 0.0, -200.0, 2000.0, 90.0, 90.0, 90.0);
-  */
-  presentation.start();
 
+  presentation.start();
+  /*ws = new WebSocket("");
+
+  ws.onMessage.listen((MessageEvent e) {
+    if (e.data == "right") {
+      presentation.next();
+      updatePageCount(true);
+    } else if (e.data == "left") {
+      presentation.previous();
+      updatePageCount(false);
+    }
+  });
+  */
   // Handle key events.
-  int count = 1;
   document.onKeyDown.listen((KeyboardEvent event) {
     switch (event.keyCode) {
       case KeyCode.LEFT:
         presentation.previous();
-        if (count == 1) {
-          count = maxCount;
-        } else {
-          count--;
-        }
+        updatePageCount(false);
         break;
       case KeyCode.RIGHT:
         presentation.next();
-        if (maxCount == count) {
-          count = 1;
-        } else {
-          count++;
-        }
+        updatePageCount(true);
         break;
     }
-    querySelector("#count").text = count.toString();
     window.scrollTo(0, 0);
   });
+}
+
+void updatePageCount(bool up) {
+  if (up) {
+    if (maxCount == count) {
+      count = 1;
+    } else {
+      count++;
+    }
+  } else {
+    if (count == 1) {
+      count = maxCount;
+    } else {
+      count--;
+    }
+  }
+  querySelector("#count").text = count.toString();
 }
