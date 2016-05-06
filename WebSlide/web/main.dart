@@ -68,7 +68,7 @@ void main() {
   }
 
   presentation.start();
-  ws = new WebSocket("ws://localhost:9500");
+  ws = new WebSocket("ws://localhost:9500/ws");
 
   ws.onMessage.listen((MessageEvent e) {
     if (e.data == "right") {
