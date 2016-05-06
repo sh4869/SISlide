@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.IOException;
@@ -68,17 +69,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .url("http://" + ipUrl + "/right")
                 .build();
         try {
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+            if(((Button)this.findViewById(R.id.button)).isPressed()) {
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-                }
+                    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Log.d("HTTP", response.body().string());
-                }
-            });
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("HTTP", response.body().string());
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,17 +94,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .url("http://" + ipUrl + "/left")
                 .build();
         try {
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
+            if(((Button)this.findViewById(R.id.button)).isPressed()) {
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
 
-                }
+                    }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Log.d("HTTP", response.body().string());
-                }
-            });
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        Log.d("HTTP", response.body().string());
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
