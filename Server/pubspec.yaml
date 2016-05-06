@@ -1,0 +1,5 @@
+name: Server
+version: 0.0.1
+description: A simple console application.
+dependencies:
+  route: any
