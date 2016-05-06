@@ -28,9 +28,14 @@ h1 {
 p {
   color: #333;
 }
-
-#header {
-  height: 10%
+#hedaer{
+  height:5%;
+}
+#footer{
+    height:5%;
+}
+h5.credit {
+  text-align:center;
 }
 
 #count {
@@ -39,9 +44,9 @@ p {
 /* render acts as a window into the 3d scene and controls the perspective of the virtual "camera" */
 #render {
   font-size: 1em;
-  width: 95%;
+  width: 100%;
   /*height: 31em;*/
-  height: 84%;
+  height: 90%;
   position: relative;
   margin-left: auto;
   margin-right: auto;
